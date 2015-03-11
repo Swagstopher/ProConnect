@@ -43,7 +43,7 @@ body {
 
 /* Main marketing message and sign up button */
 .jumbotron {
-  text-align: center;
+
   border-bottom: 1px solid #e5e5e5;
 }
 .jumbotron .btn {
@@ -72,6 +72,11 @@ body {
     padding-left: 0;
     padding-right: 0;
   }
+
+  .footer {
+    bottom:0;
+    position:relative;
+  }
   /* Space out the masthead */
   .header {
     margin-bottom: 30px;
@@ -79,5 +84,6 @@ body {
   /* Remove the bottom border on the jumbotron for visual effect */
   .jumbotron {
     border-bottom: 0;
+    width:100;
   }
 }
