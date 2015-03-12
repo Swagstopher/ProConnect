@@ -14,6 +14,7 @@
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
+    <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.3.5.min.js"></script>
   </head>
   <body ng-app="proConnectApp">
     <!--[if lt IE 7]>
@@ -22,7 +23,7 @@
 
     <!-- Add your site or application content here -->
     <div class="header">
-    <div class="navbar navbar-default" role="navigation" style="background-color: #05ac93; color: #ffffff;">
+    <div class="navbar navbar-default ttt" role="navigation" style="background-color: transparent;">
         <div class="container">
           <div class="navbar-header">
 
@@ -50,15 +51,19 @@
     </div>
 
     <div class="container">
-    <div ng-view=""></div>
+    <div ng-view="">
+      <body background="images/rr.jpg">
+    </div>
     </div>
 
+<br>
+<!--
     <div class="footer">
       <div class="container">
         <p><span class="glyphicon glyphicon-heart"></span>DevMo! est 2015.</p>
       </div>
     </div>
-
+-->
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
@@ -94,5 +99,7 @@
         <script src="scripts/controllers/settings.js"></script>
         <script src="scripts/controllers/index.js"></script>
         <!-- endbuild -->
+
+
 </body>
 </html>

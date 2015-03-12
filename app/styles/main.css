@@ -7,6 +7,11 @@
 
 body {
   padding: 0;
+  box-shadow: none;
+  border-top: none;
+  border-bottom: none;
+  border-right: none;
+  border-left: none;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -87,3 +92,40 @@ body {
     width:100;
   }
 }
+
+.modal-title{
+  text-align:center;
+}
+
+.centerstuff{
+  text-align:center;
+}
+
+.body{
+  box-shadow: none;
+  border-top: none;
+  border-bottom: none;
+  border-right: none;
+  border-left: none;
+  border:false;
+  frame:false;
+}
+
+.ttt{
+  box-shadow: none;
+  border-top: none;
+  border-bottom: none;
+  border-right: none;
+  border-left: none;
+}
+
+html{
+  box-shadow: none;
+  border-top: none;
+  border-bottom: none;
+  border-right: none;
+  border-left: none;
+}
+
+#footer{
+height:0px;}
