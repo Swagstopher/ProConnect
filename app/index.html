@@ -2,10 +2,11 @@
 <html class="no-js">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>ProConnect!</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
@@ -16,54 +17,146 @@
     <!-- endbuild -->
     <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.3.5.min.js"></script>
   </head>
-  <body ng-app="proConnectApp">
+  <body ng-app="proConnectApp" ng-controller="IndexCtrl">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="header">
-    <div class="navbar navbar-default ttt" role="navigation" style="background-color: transparent;">
-        <div class="container">
-          <div class="navbar-header">
 
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
 
-            <a class="navbar-brand" href="#/">ProConnect!</a>
-          </div>
+    <div id="wrap">
 
-          <div class="collapse navbar-collapse" id="js-navbar-collapse">
+    	<!-- Nav Bar -->
+    	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    		<div class="navbar-header">
+    			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+    	  			<span class="sr-only">Toggle navigation</span>
+    				 <span class="icon-bar"></span>
+    				 <span class="icon-bar"></span>
+    				 <span class="icon-bar"></span>
+    			</button>
+    			<a class="navbar-brand" href="#/">DevMo!</a>
+    		</div>
 
-            <ul class="nav navbar-nav pull-right">
-              <li><a href="#/">Home</a></li>
-              <li><a ng-href="#/about">About</a></li>
-              <li><a ng-href="#/">Inbox</a></li>
-              <li><a ng-href="#/settings">Settings</a></li>
+
+    		<div class="collapse navbar-collapse" id="navbar-collapse-1" ng-switch="login">
+
+          <!-- Links -->
+    			 <ul class="nav navbar-nav navbar-right" ng-switch-when="false">
+    				<li><a data-toggle="modal" data-target="#signin">Sign in</a></li>
+    				<li><a data-toggle="modal" data-target="#signup">Sign up</a></li>
+    			</ul> <!-- Links -->
+
+    			<!-- Links -->
+    			 <ul class="nav navbar-nav navbar-right" ng-switch-when="true">
+    				<li><a href="#/home">Home</a></li>
+    				<li><a href="#">Message</a></li>
+    				<li><a href="#">Notification</a></li>
+    				<li><a class="dropdown-toggle" id="settings" data-toggle="dropdown">Settings</a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="settings">
+            <li><a>Delete Account</a></li>
+            <li><a>Account Subscription</a></li>
+            <li><a>Email Notification</a></li>
+            <li><a>Update Email</a></li>
+            <li><a>Change Password</a></li>
+            <li><a>Log off</a></li>
             </ul>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <div class="container">
+            </li>
+    			</ul> <!-- Links -->
+
+    			<!-- Search Bar -->
+    			<form class="navbar-form navbar-right" role="search" ng-switch-when="true">
+    				<div class="form-group">
+    					<input type="text" class="form-control" placeholder="Search">
+    			  	</div>
+    			 	<button type="submit" class="btn btn-default">Submit</button>
+    			</form> <!-- Search Bar -->
+    		</div>
+    	</nav> <!-- End Nav Bar -->
+
+    </div><!-- Wrapper -->
+
     <div ng-view="">
-      <body background="images/rr.jpg">
+
+    </div>
+
+
+    <div class="modal fade"  id="signin">
+    <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h1 class="modal-title">Sign in here!</h1>
+    <div class="modal-body">
+    <form class="form-horizontal">
+    <div class="form-group">
+      <label for="loginEmail" class="col-sm-2 control-label" control-label>Email</label>
+      <div class="col-sm-10">
+        <input type="email"  class="form-control" id="loginEmail" placeholder="Enter Email">
+        <br>
+      </div>
+
+      <label for="registerPassword" class="col-sm-2 control-label" control-label>Password</label>
+      <div class="col-sm-10">
+        <input type="password"  class="form-control" id="loginPassword" placeholder="Enter Password">
+      </div>
+
+    </div>
+    </div>
+    </form>
+    <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+    <button type="button" class="btn btn-default" ng-click="parselogin()" data-dismiss="modal">Log In</button>
+    </div>
+
+      </div>
+    </div>
     </div>
     </div>
 
-<br>
-<!--
-    <div class="footer">
-      <div class="container">
-        <p><span class="glyphicon glyphicon-heart"></span>DevMo! est 2015.</p>
+    <div class="modal fade" id="signup">
+    <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h1 class="modal-title">Register Here!</h1>
+
+
+    <div class="modal-body">
+    <form class="form-horizontal">
+    <div class="form-group">
+    <label for="registerEmail" class="col-sm-2 control-label" control-label>Email</label>
+    <div class="col-sm-10">
+      <input type="email"  class="form-control" id="registerEmail" placeholder="Enter Email">
+      <br>
+    </div>
+
+    <label for="registerPassword" class="col-sm-2 control-label" control-label>Password</label>
+    <div class="col-sm-10">
+      <input type="password"  class="form-control" id="registerPassword" placeholder="Enter Password">
+    </div>
+
+    </div>
+    </div>
+    </form>
+    <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+    <button type="button" class="btn btn-default" ng-click="parseregister()" data-dismiss="modal">Register</button>
+
+    </div>
+
       </div>
     </div>
--->
+    </div>
+    </div>
+
+
+
+
+
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
@@ -98,6 +191,8 @@
         <script src="scripts/controllers/about.js"></script>
         <script src="scripts/controllers/settings.js"></script>
         <script src="scripts/controllers/index.js"></script>
+        <script src="scripts/controllers/profile.js"></script>
+        <script src="scripts/controllers/home.js"></script>
         <!-- endbuild -->
 
 

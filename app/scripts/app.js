@@ -33,38 +33,25 @@ angular
         templateUrl: 'views/settings.html',
         controller: 'SettingsCtrl'
       })
+      .when('/profile', {
+        templateUrl: 'views/profile.html',
+        controller: 'ProfileCtrl'
+      })
+      .when('/home', {
+        templateUrl: 'views/home.html',
+        controller: 'HomeCtrl'
+      })
+      .when('/forum', {
+        templateUrl: 'views/forum.html',
+        controller: 'ForumCtrl'
+      })
+      .when('/friendslist', {
+        templateUrl: 'views/friendslist.html',
+        controller: 'FriendslistCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
   });
 
   Parse.initialize("iAkM7wKq1rqr60qYUUig2fbyNqoVmKgNo7S1pcd9", "7z1ZDoF1Sju2L5inrUCxWKxOIJjnCbVGUVO1Kqfb");
-
-  function register(){
-      var newUser = new Parse.User();
-
-      newUser.set("username", document.getElementById("registerEmail").value);
-      newUser.set("password", document.getElementById("registerPassword").value);
-      newUser.signUp(null, {
-          success: function(newUser)
-          {
-              // move user to next page to add additional info, in register.js
-          },
-          error: function(newUser, error){ // error if email is already taken
-              response.error("Error: " + error.code + " " + error.message);
-          }})
-  }
-
-  function logIn(){
-  var username = document.getElementById("loginEmail").value;
-  var password = document.getElementById("loginPassword").value;
-
-  Parse.User.logIn(username, password, {
-    success: function(user) {
-      // Do stuff after successful login.
-    },
-    error: function(user, error) {
-      // The login failed. Check error to see why.
-    }
-  })
-  }
