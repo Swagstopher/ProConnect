@@ -1,1 +1,35 @@
-<p>This is the forum view.</p>
+<br>
+<!-- Middle Body -->
+<div class="col-md-6" style="left:25%!Important;" ng-switch="forumswitch">
+			<div class="middle-body-forum">
+				<div class="panel panel-transparent">
+					<div class="panel-heading">
+						<h3 class="panel-title">Forums {{forumlist.length}}</h3>
+					</div>
+					<div class="panel-body">
+						<br>
+
+
+						<ul class="list-group" ng-switch-when="forum">
+<div ng-repeat="forum in forumlist">
+							<li class="list-group-item" ng-click="changetoThread()">
+									{{ forum.name }}
+							</li></a>
+							<br>
+						</ul>
+
+						<ul class="list-group" ng-switch-when="thread">
+						<div ng-repeat="thread in threadlist">
+						<li class="list-group-item" ng-click="changetoPosts()">
+							{{thread.name}}
+						</li></a>
+						<br>
+					</ul>
+				</div>
+
+
+					</div>
+					</div><!-- Forums List -->
+				</div>
+			</div> <!-- Middle Body -->
+    </div>

@@ -30,7 +30,35 @@
 		</div> <!-- Left Menu Links -->
 	</div><!-- Left Panel -->
 
+	<div ng-switch="login">
+	<div class="left-body" ng-switch-when="true">
+		<div class="col-md-3">
 
+			<!-- Profile Picture -->
+			<div id="profile">
+				<a href="">
+				<img src="../images/rickross.jpg" height="100" width="100" alt="">
+				<div class="overlay">
+				</div>
+				</a>
+			</div> <!-- Profile Picture -->
+
+			<div class="container-user_name">
+				<h5 style="color:white;">Rick Ross</h5>
+			</div>
+
+			<!-- Left Menu Links -->
+			<ul class="nav nav-pills nav-stacked">
+				<li role="presentation"><a ng-click="page = home">Home</a></li>
+				<li role="presentation" ng-switch-when="profile" class="active"><a href="#/profile">Profile</a></li>
+				<li role="presentation"><a ng-click="page = profile">Profile</a></li>
+				<li role="presentation"><a href="friendlist.html">Friends</a></li>
+				<li role="presentation"><a href="#/">Events</a></li>
+				<li role="presentation"><a href="forum.html">Forums</a></li>
+			</ul>
+		</div> <!-- Left Menu Links -->
+	</div><!-- Left Panel -->
+</div>
 
 
 
