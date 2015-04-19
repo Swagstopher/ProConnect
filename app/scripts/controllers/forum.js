@@ -30,7 +30,8 @@ angular.module('proConnectApp')
     };
 
     $scope.changetoPosts = function() {
-
+      $rootScope.forumswitch = 'posts';
+      $scope.$digest();
     };
 
   });

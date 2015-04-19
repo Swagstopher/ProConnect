@@ -1,4 +1,4 @@
-<div class="container-fluid" style="color:white;" >
+<div class="container-fluid" style="color:white;" ng-init="">
     <br>
     <br>
     <div class="row">
@@ -8,9 +8,17 @@
             <table class="table">
                 <tr>
                     <td><iframe frameborder="no" height="450" scrolling=
-                        "no" src=
-                        "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/72768143&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false"
+                        "no" ng-src=
+                        "{{soundcloud}}"
                         width="100%"></iframe></td>
+                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editsoundcloud">
+              Edit SoundCloud
+            </button>
+
+            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editprofile">
+  Edit Profile Information
+</button>
+
                 </tr>
                 <tr>
                     <td>
@@ -28,21 +36,29 @@
                                     <td>Time</td>
                                 </tr>
 
+                                <tr ng-repeat="event in events">
+                                    <td>{{event.eventname}}</td>
+                                    <td>{{event.location}}</td>
+                                    <td>{{event.date}}</td>
+                                    <td>{{event.time}}</td>
+                                </tr>
                             </tbody>
                         </table>
                     </td>
                 </tr>
                 <tr>
+                  <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editevents">
+        Edit Events
+      </button>
                 </tr>
                 <tr>
                     <td>
                         <h2 class="centerstuff" style="font-size:18px">Youtube Videos</h2>
-                        <div class="centerstuff">
-                        <iframe width="290" height="200" src="https://www.youtube.com/embed/rhUvo4xj2oU" frameborder="0" allowfullscreen></iframe>
-                        <iframe width="290" height="200" src="https://www.youtube.com/embed/Ox_rgDuyws8" frameborder="0" allowfullscreen></iframe>
-                        <iframe width="290" height="200" src="https://www.youtube.com/embed/-hhE1Y4ucm0" frameborder="0" allowfullscreen></iframe>
+                        <div class="centerstuff" ng-repeat="video in youtube">
+                        <iframe width="290" height="200" ng-src="{{video.link}}" frameborder="0" allowfullscreen></iframe>
                       </div>
                     </td>
+                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editvideos"> Edit Videos</button>
                 </tr>
                 <tr>
                     <td>
@@ -78,7 +94,7 @@
             </table>
         </div>
 
-        <div class="col-xs-3 centerstuff" style="position: fixed; right:0%;">
+        <div class="col-xs-3 container centerstuff" style="position: fixed; right:0%;">
 
            <div id="img_container" style="text-align: center" data-toggle="modal" data-target="#myModal">
                <img ng-src="{{profilepic}}" class="img-circle" width="190px"></img>
@@ -86,9 +102,9 @@
 
 
 
-            <h2>Hardwell</h2>
-            <p>From: Breda, Holland</p>
-            <p>Genre: Big Room</p>
+            <h2>{{artistname}}</h2>
+            <p>From: {{artistfrom}}</p>
+            <p>Genre: {{artistprofession}}</p>
             <p>Years active: 2005- </p>
             <p>Follow me on:</p>
 
@@ -115,7 +131,6 @@
                     <td>Information Information</td>
                 </tr>
 
-
                     <td colspan="2">
                         <a class="twitter-follow-button"
                             href="https://twitter.com/hardwell"
@@ -131,6 +146,9 @@
                 </tr>
                 <tr>
             </table>
+            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editprofile">
+  Edit Profile
+</button>
         </div>
     </div>
     <hr>
@@ -142,3 +160,129 @@
         </div>
     </div>
 </div>
+
+
+<!-- Modals! -->
+<div class="modal fade" id="editprofile" tabindex="-1" role="dialog" data-toggle="modal" arialabelledby="editProfileLabel" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title" id="editProfileLabel">Edit Profile Information</h4>
+</div>
+
+<div class="modal-body">
+<h2>Change Profile Picture</h2>
+
+<h4>Edit From</h4>
+
+<h4>Genre</h4>
+
+<h4>Edit Social Media</h4>
+
+<h4>Edit Awards and Achievements</h4>
+
+  </div>
+
+  <div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- Edit Soundcloud -->
+
+<div class="modal fade" id="editsoundcloud" tabindex="-1" role="dialog" data-toggle="modal" arialabelledby="editSoundCloudLabel" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title" id="editProfileLabel">Edit Soundcloud</h4>
+</div>
+
+<div class="modal-body">
+<h2>Edit Sound Cloud</h2>
+
+  </div>
+
+  <div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- Edit Events -->
+
+<div class="modal fade" id="editevents" tabindex="-1" role="dialog" data-toggle="modal" arialabelledby="editEventsLabel" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title" id="editEventsLabel">Edit Event Information</h4>
+</div>
+
+<div class="modal-body">
+<h2 class="centerstuff">Edit Event Information</h2>
+<div ng-repeat="upcoming in events" class="centerstuff">
+<t>{{upcoming.eventname}} | {{upcoming.location}} | {{upcoming.date}} | {{upcoming.time}}</t>     <button class="btn btn-danger" ng-click="removeEvent($index)" aria-label="Remove">X</button>
+<br>
+</div>
+
+<br>
+
+<form class="form-inline">
+<input type="text" class="form-control" ng-model="pluseventname" placeholder="Event Name">
+<input type="text" class="form-control" ng-model="pluseventlocation" placeholder="Location">
+<input type="text" class="form-control" ng-model="pluseventdate" placeholder="Date">
+<input type="text" class="form-control" ng-model="pluseventtime" placeholder="Time">
+</form>
+
+<br>
+<button class="btn btn-default" type="button" ng-click="addEvent()" style="right:0%;">Add Event</button>
+
+</div>
+
+  <div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+  </div>
+</div>
+</div>
+</div>
+
+
+<!-- EDIT VIDEOS -->
+
+<div class="modal fade" id="editvideos" tabindex="-1" role="dialog" data-toggle="modal" arialabelledby="editvideos" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title" id="editProfileLabel">Edit Youtube Videos</h4>
+</div>
+
+<div class="modal-body">
+<h4>Edit Youtube Videos</h4>
+
+<div ng-repeat="video in youtube" class="centerstuff" ng-model="youtube">
+  <iframe width="290" height="200" ng-src="{{video.link}}" frameborder="0" allowfullscreen></iframe>
+
+  <span class="input-group-btn">
+    <button class="btn btn-danger" ng-click="removevideo($index)" aria-label="Remove">X</button>
+  </span>
+</div>
+
+<br>
+
+<textarea class="form-control" cols="5" rows="1" ng-model="plusvideo" placeholder="Add embed links here!">
+</textarea>
+<br>
+<button class="btn btn-default" type="button" ng-click="addvideo()" style="right:0%;">
+Add</button>
+
+  </div>
+
+  <div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+  </div>
+</div>
+</div>
+</div>
+<!-- End  -->

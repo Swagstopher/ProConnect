@@ -10,7 +10,7 @@
 angular.module('proConnectApp')
   .controller('IndexCtrl', function ($scope, $rootScope, localStorageService, $filter) {
     $rootScope.page = "home";
-    $rootScope.login = "true";
+    $rootScope.login = "false";
     $scope.welcome = 'Welcome to ProConnect!';
     $scope.builtfor = 'The Networking site built for music professionals!';
     $scope.crap = 'https://www.youtube.com/embed/iQpGq4HguVs?start=1547&autoplay=1&showinfo=0&controls=0&autohide=1';
@@ -29,6 +29,7 @@ angular.module('proConnectApp')
         $rootScope.login = 'false';
       }
       else{
+        $rootScope.login = 'true';
       }
     };
 
