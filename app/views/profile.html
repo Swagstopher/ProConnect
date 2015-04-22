@@ -1,4 +1,4 @@
-<div class="container-fluid" style="color:white;" ng-init="">
+<div class="container-fluid" style="color:white;" ng-init="init()">
     <br>
     <br>
     <div class="row">
@@ -19,6 +19,17 @@
   Edit Profile Information
 </button>
 
+<button type="button" class="btn btn-primary btn-sm" ng-click="getArtistName()">
+Get My Name
+</button>
+
+<button type="button" class="btn btn-primary btn-sm" ng-click="getjtitle()">
+Get my profession!
+</button>
+
+<button type="button" class="btn btn-primary btn-sm" ng-click="getSoundCloud()">
+Get Soundcloud!
+</button>
                 </tr>
                 <tr>
                     <td>
@@ -96,42 +107,40 @@
 
         <div class="col-xs-3 container centerstuff" style="position: fixed; right:0%;">
 
-           <div id="img_container" style="text-align: center" data-toggle="modal" data-target="#myModal">
-               <img ng-src="{{profilepic}}" class="img-circle" width="190px"></img>
+           <div id="img_container" style="text-align: center" ng-model="profilepic">
+               <img ng-src="{{profilepic}}" class="img-circle" height="190px" width="190px"></img>
            </div>
 
 
 
-            <h2>{{artistname}}</h2>
-            <p>From: {{artistfrom}}</p>
-            <p>Genre: {{artistprofession}}</p>
-            <p>Years active: 2005- </p>
+            <h2 ng-model="artistname">{{artistname}}</h2>
+            <p ng-model="artistfrom">From: {{artistfrom}}</p>
+            <p ng-model="artistprofession">Genre: {{artistprofession}}</p>
             <p>Follow me on:</p>
 
-            <br>
+
+              <div ng-model="followmedia">
+            <a ng-href="{{followmedia.twitter}}">Twitter</a>
+            <a ng-href="{{followmedia.facebook}}">Facebook</a>
+          </div>
+
+              <br>
             <table class="table table-condensed">
                 <!-- this button allows user to change information like Current, Previous and Education-->
+                <br>
                 <tr>
-                    <td colspan="2">Awards and Achievements</td>
-                </tr>
-                <tr>
-                    <td>Top 100 DJ</td>
-                    <td>Breda, Holland</td>
-                </tr>
-                <tr>
-                    <td>Profession</td>
-                    <td>DJ</td>
-                </tr>
-                <tr>
-                    <td>Information</td>
-                    <td>{{date | date:'longDate'}}</td>
-                </tr>
-                <tr>
-                    <td>Information</td>
-                    <td>Information Information</td>
+                    <td colspan="3">Awards and Achievements</td>
                 </tr>
 
-                    <td colspan="2">
+                <div ng-repeat="award in AA">
+                <tr>
+                    <td></td>
+                    <td>Breda, Holland</td>
+                    <td>Moo</td>
+                </tr>
+
+              </div>
+                    <td colspan="3" class="centerstuff">
                         <a class="twitter-follow-button"
                             href="https://twitter.com/hardwell"
                             data-show-count="true"
@@ -163,6 +172,8 @@
 
 
 <!-- Modals! -->
+
+
 <div class="modal fade" id="editprofile" tabindex="-1" role="dialog" data-toggle="modal" arialabelledby="editProfileLabel" aria-hidden="true">
   <div class="modal-dialog">
   <div class="modal-content">
@@ -172,6 +183,7 @@
 
 <div class="modal-body">
 <h2>Change Profile Picture</h2>
+{{}}
 
 <h4>Edit From</h4>
 

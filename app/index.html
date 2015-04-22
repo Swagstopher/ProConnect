@@ -17,7 +17,7 @@
     <!-- endbuild -->
     <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.3.5.min.js"></script>
   </head>
-  <body ng-app="proConnectApp" ng-controller="IndexCtrl" ng-init="checkLogin()">
+  <body ng-app="proConnectApp" ng-controller="IndexCtrl">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -47,7 +47,7 @@
     			</ul> <!-- Links -->
 
     			<!-- Links -->
-    			 <ul class="nav navbar-nav navbar-right" ng-switch-when="true" style="right:50%!important;">
+    			 <ul class="nav navbar-nav" ng-switch-when="true" style="right:50%!important;">
     				<li><a class="dropdown-toggle glyphicon glyphicon-option-vertical" id="settings" data-toggle="dropdown" style="right:1%!Important;"></a>
             <ul class="dropdown-menu" role="menu" aria-labelledby="settings">
             <li><a>Edit Profile</a></li>
@@ -81,16 +81,16 @@
   <div class="col-md-3">
 <div style=" left: 7.5%!Important; position:fixed!Important;">
     <!-- Profile Picture -->
-    <div id="profile">
+    <div id="profile" ng-model="currentUserProfilePicture">
       <br>
       <a href="">
-      <img src="../images/ronaldo.jpg" height="190" width="190" alt="">
+      <img ng-src="{{currentUserProfilePicture}}" height="190" width="190" alt="">
       <div class="overlay">
       </div>
       </a>
     </div> <!-- Profile Picture -->
 
-      <h2 class="centerstuff" style="color:white;">Cristiano Ronaldo</h2>
+      <h2 class="centerstuff" style="color:white;" ng-model="currentUser">{{currentUser}}</h2>
 
     <!-- Left Menu Links -->
     <ul class="nav nav-pills nav-stacked">

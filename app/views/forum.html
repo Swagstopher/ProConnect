@@ -1,6 +1,6 @@
 <br>
 <!-- Middle Body -->
-<div class="col-md-6" style="left:25%!Important;" ng-switch="forumswitch">
+<div class="col-md-9" style="left:25%!Important;" ng-switch="forumswitch">
 			<div class="middle-body-forum">
 				<div class="panel panel-transparent">
 					<div class="panel-heading">
@@ -10,17 +10,17 @@
 						<br>
 
 
-						<ul class="list-group" ng-switch-when="forum">
+						<ul class="list-group" ng-switch-when="Forum">
 <div ng-repeat="forum in forumlist">
-							<li class="list-group-item" ng-click="changetoThread()">
+							<li class="list-group-item" class="centerstuff" ng-click="changetoThread()">
 									{{ forum.name }}
 							</li></a>
 							<br>
 						</ul>
 
-						<ul class="list-group" ng-switch-when="thread">
+						<ul class="list-group" ng-switch-when="Thread">
 						<div ng-repeat="thread in threadlist">
-						<li class="list-group-item" ng-click="changetoPosts()">
+						<li class="list-group-item" class="centerstuff" ng-click="changetoPosts()">
 							{{thread.name}}
 						</li></a>
 						<br>

@@ -10,7 +10,7 @@
 angular.module('proConnectApp')
   .controller('ForumCtrl', function ($scope, $rootScope) {
 
-    $rootScope.forumswitch = "forum";
+    $rootScope.forumswitch = "Forum";
 
     $scope.forumlist = [
       {name: 'General'},
@@ -25,12 +25,12 @@ angular.module('proConnectApp')
     ];
 
     $scope.changetoThread = function() {
-      $rootScope.forumswitch = "thread";
+      $rootScope.forumswitch = "Thread";
       $scope.$digest();
     };
 
     $scope.changetoPosts = function() {
-      $rootScope.forumswitch = 'posts';
+      $rootScope.forumswitch = 'Posts';
       $scope.$digest();
     };
 
