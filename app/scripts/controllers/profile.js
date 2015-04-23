@@ -45,6 +45,68 @@ angular.module('proConnectApp')
 
     $scope.loadprofile = '';
 
+    //Holds Add Award Information
+
+    $scope.plusAward = '';
+    $scope.plusawardIssuer = '';
+    $scope.plusawardyear = '';
+
+    //Adds Award Information
+
+    $scope.addAward = function() {
+      var user = Parse.User.current();
+      var award = Parse.Object.extend("Achievements");
+      var newAward = new award();
+
+      if($scope.plusAward == ''){
+
+      }
+      else{
+
+      newAward.save({
+      Award: $scope.plusAward,
+      AwardIssuer: $scope.plusawardIssuer,
+      AwardYear: $scope.plusawardyear,
+      User: user
+      }, {
+
+      success: function(newAward){
+        $scope.AA.push({Award: $scope.plusAward, AwardIssuer: $scope.plusawardIssuer, AwardYear: $scope.plusawardyear});
+        $scope.plusAward = '';
+        $scope.plusawardIssuer = '';
+        $scope.plusawardyear = '';
+      },
+        error: function(result, error){
+        }
+      });
+    }
+    };
+
+    $scope.getAwards = function() {
+      var user = Parse.User.current();
+      var awards = Parse.Object.extend("Achievements");
+      var query = new Parse.Query(awards);
+      query.equalTo("User", user);
+
+      query.find({
+        success: function(results) {
+          for(var i = 0; i < results.length; i++) {
+          var award = results[i];
+          $scope.AA.push({Award: award.get('Award'), AwardIssuer: award.get('AwardIssuer'), AwardYear: award.get('AwardYear')});
+          }
+        },
+          error: function(error){
+
+          }
+
+      });
+
+    };
+
+    $scope.removeAward = function(index) {
+      $scope.AA.splice(index, 1);
+    };
+
 
 //FUNCTION TO POST ON MY WALL-------------------------------------------
     $scope.postwall = function() {
@@ -130,14 +192,11 @@ $scope.getmyWall = function() {
       {eventname:'Ultra 2015', location:'Miami, Florida', date:'March 18, 19, 20', time:'All day' }
     ];
 
-    $scope.AA = {
+    $scope.AA = [
 
-    };
+    ];
 
     $scope.youtube = [
-      {link: $sce.trustAsResourceUrl('https://www.youtube.com/embed/rhUvo4xj2oU')},
-      {link: $sce.trustAsResourceUrl('https://www.youtube.com/embed/Ox_rgDuyws8')},
-      {link: $sce.trustAsResourceUrl('https://www.youtube.com/embed/-hhE1Y4ucm0')}
     ];
 
 //GETTER and SETTER Functions
@@ -294,17 +353,7 @@ $scope.getSoundCloud = function() {
         success: function(results) {
 
 
-          //get Instagram
-          $scope.followmedia.instagram = results[0].get("Instagram").url();
-          //get Youtube
-          $scope.followmedia.youtube = results[0].get("Youtube").url();
-          //get Facebook
-          $scope.followmedia.facebook = results[0].get("Facebook").url();
-          //get SoundCloud
-          $scope.followmedia.soundcloud = results[0].get("SoundCloud").url();
-          //get twitter
-          $scope.followmedia.twitter = results[0].get("Twitter").url();
-          $scope.digest();
+
         }
       })
 
@@ -363,9 +412,23 @@ $scope.setTwitter = function() {
 //GET VIDEO PARSE FUNCTION
 
 $scope.getVideo = function() {
-  var ParseExtend = Parse.Object.extend("Videos");
-  var getvideos = new ParseExtend();
+  var user = Parse.User.current();
+  var getvideos = Parse.Object.extend("Videos");
+  var query = new Parse.Query(getvideos);
 
+  query.equalTo("User", user);
+
+  query.find({
+    success: function(results) {
+      for(var i = 0; i < results.length; i++){
+        var video = results[i];
+        $scope.youtube.push({link: $sce.trustAsResourceUrl(video.get('Link'))});
+      }
+    },
+    error: function(error){
+
+    }
+  });
 
 };
 
@@ -404,11 +467,13 @@ $scope.getVideo = function() {
       $scope.pluseventtime = '';
     };
 
+    $scope.getEvents = function() {
+      var user = Parse.User.current();
+
+    };
+
     $scope.removeEvent = function(index) {
       $scope.events.splice(index, 1);
-
-
-
     };
 
 //Get Messages
@@ -428,7 +493,12 @@ $scope.getVideo = function() {
         $scope.getMedia();
         $scope.getimage();
         $scope.getSocialMedia();
+        $scope.getAwards();
+        $scope.getVideo();
 };
+
+$scope.init();
+
 
     $scope.artistname;
     $scope.artistfrom;

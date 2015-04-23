@@ -1,4 +1,4 @@
-<div class="container-fluid" style="color:white;" ng-init="init()">
+<div class="container-fluid" style="color:white;">
     <br>
     <br>
     <div class="row">
@@ -132,14 +132,15 @@ Get Soundcloud!
                     <td colspan="3">Awards and Achievements</td>
                 </tr>
 
-                <div ng-repeat="award in AA">
-                <tr>
-                    <td></td>
-                    <td>Breda, Holland</td>
-                    <td>Moo</td>
-                </tr>
 
+                <div>
+                <tr ng-repeat="awards in AA">
+                    <td>{{awards.Award}}</td>
+                    <td>{{awards.AwardIssuer}}</td>
+                    <td>{{awards.AwardYear}}</td>
+                </tr>
               </div>
+
                     <td colspan="3" class="centerstuff">
                         <a class="twitter-follow-button"
                             href="https://twitter.com/hardwell"
@@ -182,18 +183,43 @@ Get Soundcloud!
 </div>
 
 <div class="modal-body">
+  <div class="centerstuff">
 <h2>Change Profile Picture</h2>
-{{}}
+<div id="img_container" style="text-align: center" ng-model="profilepic">
+    <img ng-src="{{profilepic}}" class="img-circle" height="190px" width="190px"></img>
+</div>
+
+<h2 ng-model="artistname">{{artistname}}</h2>
 
 <h4>Edit From</h4>
+<p ng-model="artistfrom">From: {{artistfrom}}</p>
 
 <h4>Genre</h4>
+<p ng-model="artistprofession">Genre: {{artistprofession}}</p>
 
 <h4>Edit Social Media</h4>
+<a ng-href="{{followmedia.twitter}}">Twitter</a>
+<a ng-href="{{followmedia.facebook}}">Facebook</a>
+<a ng-href="{{followmedia.facebook}}">Instagram</a>
+<a ng-href="{{followmedia.facebook}}">Soundcloud</a>
+<a ng-href="{{followmedia.facebook}}">Youtube</a>
+
 
 <h4>Edit Awards and Achievements</h4>
-
+<div ng-repeat="awards in AA">
+<p>{{awards.Award}} {{awards.AwardIssuer}} {{awards.AwardYear}}</p>
+<span class="input-group-btn">
+  <button class="btn btn-danger" ng-click="removeAward($index)" aria-label="Remove">X</button>
+</span>
   </div>
+  <div>
+  <input type="text" class="form-control" ng-model="plusAward" placeholder="Enter new Award">
+  <input type="text" class="form-control" ng-model="plusawardIssuer" placeholder="Location">
+  <input type="text" class="form-control" ng-model="plusawardyear" placeholder="Date">
+  <button class="btn btn-default" type="button" ng-click="addAward()" style="right:0%;">Add Award</button>
+</div>
+
+</div>
 
   <div class="modal-footer">
 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -274,7 +300,7 @@ Get Soundcloud!
 <h4>Edit Youtube Videos</h4>
 
 <div ng-repeat="video in youtube" class="centerstuff" ng-model="youtube">
-  <iframe width="290" height="200" ng-src="{{video.link}}" frameborder="0" allowfullscreen></iframe>
+  <iframe width="320" height="200" ng-src="{{video.link}}" frameborder="0" allowfullscreen></iframe>
 
   <span class="input-group-btn">
     <button class="btn btn-danger" ng-click="removevideo($index)" aria-label="Remove">X</button>
