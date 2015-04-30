@@ -8,7 +8,7 @@
  * Controller of the proConnectApp
  */
 angular.module('proConnectApp')
-  .controller('ProfileCtrl', function ($scope, $rootScope, $filter, $sce) {
+  .controller('ProfileCtrl', function ($scope, $rootScope, $filter, $sce, $timeout) {
 
 //Cloak functions
 
@@ -19,10 +19,20 @@ angular.module('proConnectApp')
     $scope.cloakSoundCloud;
     $scope.cloakInstagram;
 
+    $scope.hdsc = "false";
+    $scope.interval = 5000;
+
+    $scope.pictures = [
+    {link: "http://www.liquified.com/wp-content/uploads/2014/04/armin_van_buuren_by_label89-d4fpa8g.jpg"},
+    {link: "http://www.madridedm.com/wp-content/uploads/2015/04/makj-ultra-miami-2015-madridedm.jpg"},
+    {link: "http://i.ytimg.com/vi/jXOgYxUf6Ts/maxresdefault.jpg"},
+    {link: "http://i.ytimg.com/vi/jduCU4SqY08/maxresdefault.jpg"}
+    ];
+
 
 //end cloak functions
 
-
+    //temp message
 
     $scope.profilepic = 'https://media.licdn.com/mpr/mpr/shrink_200_200/p/7/005/07e/08b/2703371.jpg';
 
@@ -34,7 +44,7 @@ angular.module('proConnectApp')
 
 
 
-    $scope.soundcloud = 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/198306478&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true';
+    $scope.soundcloud = $sce.trustAsResourceUrl('https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/72768143&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false');
 
     //Holds Add Event Information
     $scope.pluseventname = '';
@@ -149,25 +159,42 @@ angular.module('proConnectApp')
 
 $scope.getmyWall = function() {
   var user = Parse.User.current();
+  var wall = Parse.Object.extend("Wall");
+  var query = new Parse.Query(wall);
 
-  //GET ALL WALL POSTS FOR TARGET USER USING QUERY
-    /*
-    ON SUCCESS:
-    DO A FOR LOOP OF SIZE RESULTS
-    FOR EACH RESULT
+  query.equalTo("TargetUser", user);
 
-      GET THE POSTER ID
-        DO A QUERY FOR THAT POSTER ID ON THE MEDIA TABLE
-              ON SUCCESS:
-                  GET THE PROFILEIMAGE
-                  GET THE ARTISTNAME
-                  PUSH THE FUCKING WALL!
-                      PICTURE: PROFILEIMAGE
-                      USER: ARTISTNAME
-                      POSTDATE: CREATEDAT
-                      MESSAGE: MESSAGE
-    */
+  query.find({
+    success: function(results) {
+      for(var i = 0; i < results.length; i++){
+        var wallinfo = results[i];
+        var message = wallinfo.get("Message");
+        $scope.getWallInfo(wallinfo.get("Poster"), wallinfo.get("Message"), wallinfo.get("createdAt"));
 
+      }
+    },
+    error: function(error){}
+
+  });
+
+};
+
+$scope.getWallInfo = function(poster, message, timestamp) {
+
+  var posts = Parse.Object.extend("Media");
+  var query = new Parse.Query(posts);
+
+  query.equalTo("user", poster);
+
+  query.find({
+    success: function(results){
+      if(results.length > 0){
+      $scope.wall.push({picture: results[0].get("profileImage").url() , user: results[0].get("artistname"), postdate: timestamp, message: message });
+      }
+    },
+    error: function(error){}
+
+  });
 
 };
 
@@ -182,8 +209,6 @@ $scope.getmyWall = function() {
 
 
     $scope.wall = [
-      {picture:'http://remixpacks.at.ua/_ld/6/64755245.jpg', user: 'Hardwell', postdate:'Posted on March 26, 2015', message: 'United We Are!!!'},
-      {picture:'http://remixpacks.at.ua/_ld/6/64755245.jpg', user: 'Hardwell', postdate:'Posted on March 26, 2015', message: 'United We Are!!!'}
     ];
 
     $scope.events = [
@@ -452,6 +477,7 @@ $scope.getVideo = function() {
 
     success: function(Add) {
       $scope.events.push({eventname: $scope.pluseventname, location: $scope.pluseventlocation, date: $scope.pluseventdate, time: $scope.pluseventtime});
+      $scope.digest();
     },
 
     error: function(Add ,error) {
@@ -490,11 +516,12 @@ $scope.getVideo = function() {
 
 
     $scope.init = function() {
-        $scope.getMedia();
-        $scope.getimage();
-        $scope.getSocialMedia();
-        $scope.getAwards();
-        $scope.getVideo();
+      $scope.getMedia();
+      $scope.getimage();
+      $scope.getSocialMedia();
+      $scope.getAwards();
+      $scope.getVideo();
+      $scope.getmyWall();
 };
 
 $scope.init();

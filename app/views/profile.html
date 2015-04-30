@@ -2,35 +2,58 @@
     <br>
     <br>
     <div class="row">
-        <div class="col-xs-6" style="left:25%!Important;">
+        <div class="col-xs-8" style="left:5%!Important;">
 
+
+<div style="height: 305">
+<carousel interval="interval">
+<slide ng-repeat="picture in pictures" active="slide.active">
+  <img ng-src="{{picture.link}}" style="margin:auto;">
+  <div class="carousel-caption">
+    <h4>Moo</h4>
+      <p>Moo</p>
+  </div>
+</slide>
+</carousel>
+
+</div>
             <br> </br>
             <table class="table">
                 <tr>
-                    <td><iframe frameborder="no" height="450" scrolling=
+                    <td>
+                      <div>
+                      <iframe frameborder="no" height="450" scrolling=
                         "no" ng-src=
                         "{{soundcloud}}"
-                        width="100%"></iframe></td>
+                        width="100%"></iframe>
+                      </div>
+                        </td>
                         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editsoundcloud">
               Edit SoundCloud
             </button>
 
-            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editprofile">
-  Edit Profile Information
-</button>
-
-<button type="button" class="btn btn-primary btn-sm" ng-click="getArtistName()">
-Get My Name
-</button>
-
-<button type="button" class="btn btn-primary btn-sm" ng-click="getjtitle()">
-Get my profession!
-</button>
-
-<button type="button" class="btn btn-primary btn-sm" ng-click="getSoundCloud()">
-Get Soundcloud!
-</button>
                 </tr>
+                <tr>
+                  <table class="table table-condensed">
+                      <!-- this button allows user to change information like Current, Previous and Education-->
+                      <br>
+                      <tr>
+                          <td colspan="3" class="centerstuff">Awards and Achievements</td>
+                      </tr>
+
+
+                      <div>
+                      <tr ng-repeat="awards in AA">
+                          <td>{{awards.Award}}</td>
+                          <td>{{awards.AwardIssuer}}</td>
+                          <td>{{awards.AwardYear}}</td>
+                      </tr>
+                    </div>
+                      </tr>
+                      <tr>
+                  </table>
+                </tr>
+
                 <tr>
                     <td>
                         <table class="table table">
@@ -39,7 +62,7 @@ Get Soundcloud!
                                     <h2 class="centerstuff" style="font-size:18px color:black;">Upcoming Events</h2>
                                 </tr>
                             </thead>
-                            <tbody style="color:#000000; text-align: center;">
+                            <tbody style="color:#FFFFFF; text-align: center;">
                                 <tr>
                                     <td>Event Name</td>
                                     <td>Location</td>
@@ -47,7 +70,7 @@ Get Soundcloud!
                                     <td>Time</td>
                                 </tr>
 
-                                <tr ng-repeat="event in events">
+                                <tr ng-repeat="event in events" ng-model="events">
                                     <td>{{event.eventname}}</td>
                                     <td>{{event.location}}</td>
                                     <td>{{event.date}}</td>
@@ -84,12 +107,12 @@ Get Soundcloud!
                 <tr>
                     <td>
 
-                        <div class="media" ng-repeat="post in wall">
+                        <div class="media" ng-model="wall" ng-repeat="post in wall">
                             <a href="#" class="pull-left">
                                 <div id="img_container"><img class=
                                     "img-circle" ng-src=
                                     "{{post.picture}}"
-                                    width="50px"></div>
+                                    width="50px" height="50px"></div>
                             </a>
                             <div class="media-body" ng-model="post">
                                 <h4 class="media-heading">{{post.user}}<small><i> {{post.postdate}}</i></small></h4>
@@ -105,7 +128,7 @@ Get Soundcloud!
             </table>
         </div>
 
-        <div class="col-xs-3 container centerstuff" style="position: fixed; right:0%;">
+        <div class="col-xs-3 container centerstuff" style="position: fixed; right:2%;">
 
            <div id="img_container" style="text-align: center" ng-model="profilepic">
                <img ng-src="{{profilepic}}" class="img-circle" height="190px" width="190px"></img>
@@ -125,37 +148,7 @@ Get Soundcloud!
           </div>
 
               <br>
-            <table class="table table-condensed">
-                <!-- this button allows user to change information like Current, Previous and Education-->
-                <br>
-                <tr>
-                    <td colspan="3">Awards and Achievements</td>
-                </tr>
 
-
-                <div>
-                <tr ng-repeat="awards in AA">
-                    <td>{{awards.Award}}</td>
-                    <td>{{awards.AwardIssuer}}</td>
-                    <td>{{awards.AwardYear}}</td>
-                </tr>
-              </div>
-
-                    <td colspan="3" class="centerstuff">
-                        <a class="twitter-follow-button"
-                            href="https://twitter.com/hardwell"
-                            data-show-count="true"
-                            data-lang="en">
-                        Follow @twitterapi
-                        </a>
-                        <script>
-                            window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if																			(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/																			widgets.js";fjs.parentNode.insertBefore	(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return 																			t;}
-                            (document,"script","twitter-wjs"));
-                        </script>
-                    </td>
-                </tr>
-                <tr>
-            </table>
             <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editprofile">
   Edit Profile
 </button>
@@ -230,24 +223,6 @@ Get Soundcloud!
 
 <!-- Edit Soundcloud -->
 
-<div class="modal fade" id="editsoundcloud" tabindex="-1" role="dialog" data-toggle="modal" arialabelledby="editSoundCloudLabel" aria-hidden="true">
-  <div class="modal-dialog">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h4 class="modal-title" id="editProfileLabel">Edit Soundcloud</h4>
-</div>
-
-<div class="modal-body">
-<h2>Edit Sound Cloud</h2>
-
-  </div>
-
-  <div class="modal-footer">
-<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-  </div>
-</div>
-</div>
-</div>
 
 <!-- Edit Events -->
 

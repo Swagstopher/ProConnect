@@ -18,44 +18,54 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'LocalStorageModule'
+    'LocalStorageModule',
+    'parse-angular',
+    'ui.bootstrap',
+    'youtube-embed',
+    'ui.router'
   ])
   .config(['localStorageServiceProvider', function(localStorageServiceProvider){
   localStorageServiceProvider.setPrefix('ls');
 }])
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
+  .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+  $urlRouterProvider.otherwise('/');
+
+  $stateProvider
+      .state('home', {
+          url:'/',
+          templateUrl: 'views/main.html',
+          controller: 'MainCtrl'
       })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl'
+      .state('about', {
+          url:'/about',
+          templateUrl: 'views/about.html',
+          controller: 'AboutCtrl'
       })
-      .when('/settings', {
-        templateUrl: 'views/settings.html',
-        controller: 'SettingsCtrl'
+      .state('settings', {
+          url:'/settings',
+          templateUrl: 'views/settings.html',
+          controller: 'SettingsCtrl'
       })
-      .when('/profile', {
-        templateUrl: 'views/profile.html',
-        controller: 'ProfileCtrl'
+      .state('profile', {
+          url:'/profile',
+          templateUrl: 'views/profile.html',
+          controller: 'ProfileCtrl'
       })
-      .when('/home', {
-        templateUrl: 'views/home.html',
-        controller: 'HomeCtrl'
+      .state('viewprofile', {
+          url:'/profile/:other',
+          templateUrl: 'views/profile.html',
+          controller: 'ViewprofileCtrl'
       })
-      .when('/forum', {
-        templateUrl: 'views/forum.html',
-        controller: 'ForumCtrl'
+      .state('forum', {
+          url:'/forum',
+          templateUrl: 'views/forum.html',
+          controller: 'ForumCtrl'
       })
-      .when('/friendslist', {
-        templateUrl: 'views/friendslist.html',
-        controller: 'FriendslistCtrl'
+      .state('friendslist', {
+          url:'/friendslist',
+          templateUrl: 'views/friendslist.html',
+          controller: 'FriendslistCtrl'
       })
-      .otherwise({
-        redirectTo: '/'
-      });
-  });
+}]);
 
   Parse.initialize("iAkM7wKq1rqr60qYUUig2fbyNqoVmKgNo7S1pcd9", "7z1ZDoF1Sju2L5inrUCxWKxOIJjnCbVGUVO1Kqfb");

@@ -31,6 +31,10 @@ module.exports = function(config) {
       'bower_components/angular-sanitize/angular-sanitize.js',
       'bower_components/angular-touch/angular-touch.js',
       'bower_components/angular-local-storage/dist/angular-local-storage.js',
+      'bower_components/parse-angular-patch/dist/parse-angular.js',
+      'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+      'bower_components/angular-youtube-mb/src/angular-youtube-embed.js',
+      'bower_components/angular-ui-router/release/angular-ui-router.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',
