@@ -10,7 +10,6 @@
  */
 angular
   .module('proConnectApp', [
-    'ngAnimate',
     'ngAria',
     'ngCookies',
     'ngMessages',
@@ -65,6 +64,11 @@ angular
           url:'/friendslist',
           templateUrl: 'views/friendslist.html',
           controller: 'FriendslistCtrl'
+      })
+      .state('searchresults', {
+          url:'/searchresults',
+          templateUrl: 'views/searchresults.html',
+          controller: 'SearchresultsCtrl'
       })
 }]);
 

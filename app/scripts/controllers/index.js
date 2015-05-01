@@ -8,7 +8,7 @@
  * Controller of the proConnectApp
  */
 angular.module('proConnectApp')
-  .controller('IndexCtrl', function ($scope, $rootScope, localStorageService, $filter, $sce) {
+  .controller('IndexCtrl', function ($scope, $rootScope, localStorageService, $filter, $sce, $state) {
     $rootScope.page = "home";
     $rootScope.login = "";
     $scope.welcome = 'Welcome to ProConnect!';
@@ -18,6 +18,8 @@ angular.module('proConnectApp')
     $rootScope.date = new Date();
     $rootScope.currentUser = '';
     $rootScope.currentUserProfilePicture = '';
+
+    $scope.searchmodel = '';
 
     $scope.getcurrentuser = function() {
       var username = Parse.User.current();
@@ -87,6 +89,10 @@ angular.module('proConnectApp')
           error: function(newUser, error){ // error if email is already taken
               response.error("Error: " + error.code + " " + error.message);
           }})
+    };
+
+    $scope.gotosearch = function() {
+      $state.go('searchresults');
     };
 
   });

@@ -4,8 +4,7 @@
     <div class="row">
         <div class="col-xs-8" style="left:5%!Important;">
 
-
-<div style="height: 305">
+<div style="max-height: 305!Important;">
 <carousel interval="interval">
 <slide ng-repeat="picture in pictures" active="slide.active">
   <img ng-src="{{picture.link}}" style="margin:auto;">
@@ -22,10 +21,7 @@
                 <tr>
                     <td>
                       <div>
-                      <iframe frameborder="no" height="450" scrolling=
-                        "no" ng-src=
-                        "{{soundcloud}}"
-                        width="100%"></iframe>
+                      <a ng-bind-html="soundcloudembed"></a>
                       </div>
                         </td>
                         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editsoundcloud">

@@ -21,6 +21,7 @@ angular.module('proConnectApp')
 
     $scope.hdsc = "false";
     $scope.interval = 5000;
+    $scope.soundcloudembed = '';
 
     $scope.pictures = [
     {link: "http://www.liquified.com/wp-content/uploads/2014/04/armin_van_buuren_by_label89-d4fpa8g.jpg"},
@@ -116,6 +117,26 @@ angular.module('proConnectApp')
     $scope.removeAward = function(index) {
       $scope.AA.splice(index, 1);
     };
+
+//GET MY EMBEDLINK
+$scope.getembed = function(){
+  var user = Parse.User.current();
+  var embed = Parse.Object.extend("Media");
+  var query = new Parse.Query(embed);
+
+  query.equalTo("user", user);
+
+  query.find({
+    success: function(results) {
+      $scope.soundcloudembed = $sce.trustAsHtml(results[0].get("SoundCloudEmbed"));
+    },
+      error: function(error){
+
+      }
+
+  })
+};
+//END MYEMBEDLINK
 
 
 //FUNCTION TO POST ON MY WALL-------------------------------------------
@@ -340,7 +361,7 @@ $scope.getSoundCloud = function() {
   var media = Parse.Object.extend("Media");
   var query = new Parse.Query(media);
   var user = Parse.User.current();
-  query.equalTo("user",user);
+  query.equalTo("user", user);
 
   query.find({
     success: function(result) {
@@ -477,7 +498,6 @@ $scope.getVideo = function() {
 
     success: function(Add) {
       $scope.events.push({eventname: $scope.pluseventname, location: $scope.pluseventlocation, date: $scope.pluseventdate, time: $scope.pluseventtime});
-      $scope.digest();
     },
 
     error: function(Add ,error) {
@@ -522,6 +542,7 @@ $scope.getVideo = function() {
       $scope.getAwards();
       $scope.getVideo();
       $scope.getmyWall();
+      $scope.getembed();
 };
 
 $scope.init();
