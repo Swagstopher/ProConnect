@@ -233,9 +233,6 @@ $scope.getWallInfo = function(poster, message, timestamp) {
     ];
 
     $scope.events = [
-      {eventname:'Ultra 2015', location:'Miami, Florida', date:'March 18, 19, 20', time:'All day' },
-      {eventname:'Ultra 2015', location:'Miami, Florida', date:'March 18, 19, 20', time:'All day' },
-      {eventname:'Ultra 2015', location:'Miami, Florida', date:'March 18, 19, 20', time:'All day' }
     ];
 
     $scope.AA = [
@@ -399,7 +396,6 @@ $scope.getSoundCloud = function() {
         success: function(results) {
 
 
-
         }
       })
 
@@ -410,22 +406,43 @@ $scope.getSoundCloud = function() {
 //SET SOCIAL MEDIA----------------------------------------------------------------------------------
 
 $scope.setInstagram = function() {
-
+  var user = Parse.User.current();
 };
 
 $scope.setYouTube = function() {
+  var user = Parse.User.current();
 
 };
 
 $scope.setFaceBook = function() {
+  var user = Parse.User.current();
+  var extend = Parse.Object.extend();
+  var add = new extend();
 
+  add.save({
+    facebook: $scope.socialmedia.facebook
+  })
 };
 
 $scope.setSoundCloud = function() {
+  var user = Parse.User.current();
+  var extend = Parse.Object.extend("Media");
+  var add = new extend();
+
+  add.save({
+    soundcloud: $scope.socialmedia.soundcloud
+  })
 
 };
 
 $scope.setTwitter = function() {
+  var user = Parse.User.current();
+  var extend = Parse.Object.extend("Media");
+  var add = new extend();
+
+  add.save({
+    twitter: $scope.socialmedia.twitter
+  })
 
 };
 
@@ -515,7 +532,21 @@ $scope.getVideo = function() {
 
     $scope.getEvents = function() {
       var user = Parse.User.current();
+      var events = Parse.Object.extend("Events");
+      var query = new Parse.Query(events);
 
+      query.equalTo("User", user);
+      query.find({
+        success: function(results){
+          for(var i = 0; i < results.length; i++){
+          var events = results[i];
+          $scope.events.push({eventname: events.get('EventName'), location: events.get('EventLocation'), date: events.get('EventDate'), time: events.get('EventTime')});
+          }
+        },
+        error: function(error){
+
+        }
+      });
     };
 
     $scope.removeEvent = function(index) {
@@ -543,6 +574,7 @@ $scope.getVideo = function() {
       $scope.getVideo();
       $scope.getmyWall();
       $scope.getembed();
+      $scope.getEvents();
 };
 
 $scope.init();

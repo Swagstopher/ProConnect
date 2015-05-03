@@ -91,6 +91,20 @@ angular.module('proConnectApp')
           }})
     };
 
+    $scope.logout = function() {
+      var currentUser = Parse.User.current();
+      if (currentUser != null) {
+          Parse.User.logOut();
+          $rootScope.login = 'false';
+          localStorageService.set('loginkey', 'false');
+          $state.go('home');
+          alert("User has logged out");
+              }
+                else{
+    alert("There is no associated account logged in currently");
+  }
+};
+
     $scope.gotosearch = function() {
       $state.go('searchresults');
     };

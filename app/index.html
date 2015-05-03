@@ -34,22 +34,33 @@
          <span class="icon-bar"></span>
          <span class="icon-bar"></span>
          </button>
-         <a class="navbar-brand hidden-xs" href="#/"><div id="small_container">
+         <a class="navbar-brand hidden-xs" href="#/"><div id="small_container" ng-switch-when="true">
                   <img class="img-circle" ng-src="{{currentUserProfilePicture}}" height="50px" width="50px">
                   {{currentUser}}
                </div></a>
          <a class="navbar-brand visible-xs" href="#/" ng-switch-when="true">{{currentUser | limitTo:'1'}}</a>
          <form class="navbar-form pull-left" role="search">
-            <div class="input-group">
+            <div class="input-group" ng-switch-when="true">
                <input type="text" class="form-control" placeholder="Search" ng-model="searchmodel">
                <div class="input-group-btn">
-                  <button type="submit" class="btn btn-default" ng-click="gotosearch(); searchmf(searchmodel,"artistname")"><span class="glyphicon glyphicon-search"></span></button>
+                  <button type="submit" class="btn btn-default" ng-click="gotosearch()"><span class="glyphicon glyphicon-search"></span></button>
                </div>
             </div>
          </form>
       </div>
       <div class="navbar-collapse collapse">
-         <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav navbar-right" ng-switch-when="false">
+          <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#signin">
+              Sign In
+          </button>
+
+          <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#signup">
+              Sign Up
+          </button>
+        <a></a>
+        </ul>
+
+         <ul class="nav navbar-nav navbar-right" ng-switch-when="true">
             <li class=""><a ui-sref="home">Home</a></li>
                <li class=""><a ui-sref="profile">Profile</a></li>
                <li class=""><a ui-sref="friendslist">Contacts</a></li>
@@ -63,7 +74,7 @@
                      <li><a href="#">Email Notifications</a></li>
                      <li><a href="#">Update Email</a></li>
                      <li><a href="#">Change Password</a></li>
-                     <li><a href="#">Log off</a></li>
+                     <li><a ng-click="logout()">Log off</a></li>
                   </ul>
                </li>
 

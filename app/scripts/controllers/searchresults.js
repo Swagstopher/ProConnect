@@ -10,7 +10,8 @@
 angular.module('proConnectApp')
   .controller('SearchresultsCtrl', function ($scope, $rootScope) {
 
-
+    $scope.searchresults[];
+    $scope.noresults = '';
 
     $rootScope.freesearch = function(searchthis) {
 
@@ -21,7 +22,9 @@ angular.module('proConnectApp')
 
     query.equalTo("user", user);
 
-    $rootScope.search = function(searchthis, searchmedia) {
+
+//IMPLEMENT ANGULAR SERVICES FOR THIS TO WORK.
+    $rootScope.searchmf = function(searchthis, searchmedia) {
       var search = Parse.Object.extend("Media");
       var query = new Parse.Query(search);
       alert("Moo!");
@@ -29,14 +32,23 @@ angular.module('proConnectApp')
 
       query.find({
         success: function(results) {
-        alert(results[0].get('artistname'));
+          for(var i = 0; i<results.length; i++){
+            var person = results[i];
+        $scope.searchresults.push({profilepic: person.get("profileImage"),
+        artistname:person.get("artistname"), profession: person.get("profession"),
+        userid: person.get("user")  });
+      }
         },
           error: function(error){
-
+              $scope.noresults = "No Results Found!";
           }
 
       })
 
+    };
+
+    $scope.changeToProfile = function(userid){
+      $state.go('profile');
     };
 
   });
