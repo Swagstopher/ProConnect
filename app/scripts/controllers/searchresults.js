@@ -10,7 +10,7 @@
 angular.module('proConnectApp')
   .controller('SearchresultsCtrl', function ($scope, $rootScope) {
 
-    $scope.searchresults[];
+    $scope.searchresults = [];
     $scope.noresults = '';
 
     $rootScope.freesearch = function(searchthis) {

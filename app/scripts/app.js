@@ -61,8 +61,8 @@ angular
           controller: 'ForumCtrl'
       })
       .state('friendslist', {
-          url:'/friendslist',
-          templateUrl: 'views/friendslist.html',
+          url:'/contactslist',
+          templateUrl: 'views/contactslist.html',
           controller: 'FriendslistCtrl'
       })
       .state('searchresults', {

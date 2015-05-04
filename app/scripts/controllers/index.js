@@ -109,4 +109,62 @@ angular.module('proConnectApp')
       $state.go('searchresults');
     };
 
+    //settings files go here!
+
+    $scope.changeSubStatus = function(){
+      // var subOff = document.getElementById("subOff").checked;
+      var subOn = document.getElementById("subOn").checked;
+
+
+    var currentUser = Parse.User.current();
+    if(subOn){
+    currentUser.set("premiumSubscription", true);
+    }else{
+      currentUser.set("premiumSubscription", false);
+    }
+    currentUser.save();
+  };
+
+
+    $scope.changeEmailNotifications = function(){
+      var subOn = document.getElementById("EmailOn").checked;
+
+    var currentUser = Parse.User.current();
+    if(EmailOn){
+    currentUser.set("emailNotifications", true);
+    }else{
+    currentUser.set("emailNotifications", false);
+    }
+    currentUser.save();
+    }
+
+
+    $scope.updateEmail = function(){
+      var email1 = document.getElementById("changeEmail1").value;
+      var email2 = document.getElementById("changeEmail2").value;
+
+      if(email1 != email2)
+      {
+        return false;
+      }
+
+      var currentUser = Parse.User.current();
+      currentUser.set("username", email1);
+      currentUser.save();
+      return true;
+    };
+
+    $scope.updatePassword =  function(){
+    var currentUser = Parse.User.current();
+    Parse.User.requestPasswordReset(currentUser.get("username"), {
+      success: function() {
+
+      },
+      error: function(error) {
+        // Show the error message somewhere
+        alert("Error: " + error.code + " " + error.message);
+      }
+    });
+  };
+
   });

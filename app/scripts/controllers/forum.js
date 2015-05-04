@@ -14,16 +14,14 @@ angular.module('proConnectApp')
 
     $scope.categories = [];
 
-    $scope.threadlist = [
-      {name: 'Hardwell Ultra 2015 Liveset'},
-      {name: 'Andrew Rayel Ultra 2015 Liveset'},
-      {name: 'Steve Aoki Ultra 2015 Liveset'},
-    ];
+    $scope.threadlist = [];
 
     $scope.posts = [];
 
-    $scope.changetoThread = function() {
-      $rootScope.forumswitch = "Thread";
+    $scope.check = 'nFIH4mA2IO';
+
+    $scope.changetoForum = function() {
+      $rootScope.forumswitch = "Forum";
       $scope.$digest();
     };
 
@@ -40,38 +38,34 @@ var query = new Parse.Query(Comment);
 
 query.equalTo("isCategory", true);
 query.find({
-    success: function(categories){
-      alert("SUCCESS");
-       for (var i = 0; i < categories.length; i++) {
-      var object = categories[i];
-      alert(object.get('title'));
-      $scope.categories.push({name: object.get('title')});
-    }},
+    success: function(results){
+       for (var i = 0; i < results.length; i++) {
+      var object = results[i];
+      $scope.categories.push({name: object.get('title'), identify: object.id});
+      $scope.getCategoryThreads(object.id);
+    }
+    },
     error: function(categories){
         alert("ERROR");
       }
   });
 };
 
+
+
 //GET THREADS
-
- $scope.getThreads = function(){
-
+$scope.getCategoryThreads = function(parent) {
 var Comment = Parse.Object.extend("Comment");
 var query = new Parse.Query(Comment);
-
 query.equalTo("isThread", true);
-query.equalTo("parentID", document.getElementById("parentID").value);
-// query.equalTo("parentID", "6QjSs5ZiTA");
+query.equalTo("parentID", parent);
 query.find({
     success: function(threads){
-       alert("SUCCESS");
          for (var i = 0; i < threads.length; i++) {
       var object = threads[i];
-
-      alert(object.id + ' - ' + object.get('title') );
+      $scope.threadlist.push({title: object.get('title'), parent: object.get('parentID')});
+      $scope.getThreadPosts(object.id);
     }
-      return threads;
     },
     error: function(threads){
         alert("ERROR");
@@ -79,9 +73,30 @@ query.find({
   });
 };
 
+
+    $scope.getThreadPosts = function(parent){
+var Comment = Parse.Object.extend("Comment");
+var query = new Parse.Query(Comment);
+query.equalTo("isComment", true);
+query.equalTo("parentID", parent);
+query.ascending("createdAt");
+query.find({
+    success: function(comments){
+      for(var i = 0; i < comments.length; i++)
+      {
+        var post = comments[i];
+        $scope.posts.push({artist: post.get('fromUser'), message: post.get('content'), parentid: post.get('parentID')});
+    }
+    },
+    error: function(comments){
+        alert("ERROR");
+      }
+  });
+}
+
+
 $scope.init = function() {
   $scope.getCategories();
-  $scope.getThreads();
 };
 
 $scope.init();
