@@ -17,11 +17,6 @@ angular.module('proConnectApp')
 
     };
 
-    var embed = Parse.Object.extend("Media");
-    var query = new Parse.Query(embed);
-
-    query.equalTo("user", user);
-
 
 //IMPLEMENT ANGULAR SERVICES FOR THIS TO WORK.
     $rootScope.searchmf = function(searchthis, searchmedia) {
@@ -50,6 +45,47 @@ angular.module('proConnectApp')
     $scope.changeToProfile = function(userid){
       $state.go('profile');
     };
+
+$scope.namesearch = function(){
+  var usersearch = Parse.Object.extend("Media");
+  var query = new Parse.Query(usersearch);
+  // alert("Initiated");
+  var find = document.getElementById("find").value; // user name typed by user
+  // alert("Input taken");
+  var user = find.toLowerCase();
+  // alert(user.value);
+
+  query.equalTo("SEARCHONLY", user); // make sure it is checking against artist names
+  query.find({
+    success: function(results){
+      if (results.length>0)
+      alert(results[0].get("artistname")); // this will pop up the user with their artist name.
+    else alert("There is no such artist");
+    }
+  });
+};
+
+$scope.premiumsearch = function(category){
+  var usersearch = Parse.Object.extend("Media");
+  var query = new Parse.Query(usersearch);
+  var search = document.getElementById("find").value;
+
+  if (category === "hometown")
+  query.equalTo("hometown", search); // make sure it is checking against hometown
+else if (category === "profession")
+  query.equalTo("profession", search); // make sure it is checking against profession
+else
+  query.equalTo("artistname", search); // make sure it is checking against name
+
+
+query.find({
+  success: function(results){
+    if (results.length>0)
+      alert(results[0].get("artistname")); // this will pop up the user with their id.
+    else alert("There is no such artist");
+    }
+  });
+};
 
 
   });

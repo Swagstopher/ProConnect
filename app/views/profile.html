@@ -176,22 +176,38 @@
 <h2>Change Profile Picture</h2>
 <div id="img_container" style="text-align: center" ng-model="profilepic">
     <img ng-src="{{profilepic}}" class="img-circle" height="190px" width="190px"></img>
-</div>
+  <input type="file" id="img"><br>
+<button ng-click="changeprofileimage()">Save Image</button><br><br>
+                    </div>
 
-<h2 ng-model="artistname">{{artistname}}</h2>
+                    <h2 ng-model="artistname">{{artistname}}</h2>
+  <input type ="text" id="artistname"><br>
 
-<h4>Edit From</h4>
-<p ng-model="artistfrom">From: {{artistfrom}}</p>
+                    <h4>Edit From</h4>
+                    <p ng-model="artistfrom">From: {{artistfrom}}</p>
+  <input type ="text" id="hometown"><br>
 
-<h4>Genre</h4>
-<p ng-model="artistprofession">Genre: {{artistprofession}}</p>
+                    <h4>Genre</h4>
+                    <p ng-model="artistprofession">Genre: {{artistprofession}}</p>
+  <input type ="text" id="profession"><br>
 
-<h4>Edit Social Media</h4>
-<a ng-href="{{followmedia.twitter}}">Twitter</a>
-<a ng-href="{{followmedia.facebook}}">Facebook</a>
-<a ng-href="{{followmedia.facebook}}">Instagram</a>
-<a ng-href="{{followmedia.facebook}}">Soundcloud</a>
-<a ng-href="{{followmedia.facebook}}">Youtube</a>
+                    <h4>Edit Social Media</h4>
+                    <a ng-href="{{followmedia.twitter}}">Twitter</a>
+  <input type ="text" id="tweet"><br>
+
+                    <a ng-href="{{followmedia.facebook}}">Facebook</a>
+  <input type ="text" id="fb"><br>
+
+                    <a ng-href="{{followmedia.facebook}}">Instagram</a>
+  <input type ="text" id="instagram"><br>
+
+                    <a ng-href="{{followmedia.facebook}}">Soundcloud</a>
+  <input type ="text" id="soundlink"><br>
+
+                    <a ng-href="{{followmedia.facebook}}">Youtube</a>
+  <input type ="text" id="yt"><br><br>
+
+<button ng-click="update()">Save Settings</button><br>
 
 
 <h4>Edit Awards and Achievements</h4>
