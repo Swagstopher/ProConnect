@@ -24,10 +24,6 @@ angular.module('proConnectApp')
     $scope.soundcloudembed = '';
 
     $scope.pictures = [
-    {link: "http://www.liquified.com/wp-content/uploads/2014/04/armin_van_buuren_by_label89-d4fpa8g.jpg"},
-    {link: "http://www.madridedm.com/wp-content/uploads/2015/04/makj-ultra-miami-2015-madridedm.jpg"},
-    {link: "http://i.ytimg.com/vi/jXOgYxUf6Ts/maxresdefault.jpg"},
-    {link: "http://i.ytimg.com/vi/jduCU4SqY08/maxresdefault.jpg"}
     ];
 
 
@@ -563,6 +559,26 @@ $scope.getVideo = function() {
 
 //Get ObjectId
 
+$scope.getCarousel = function(){
+  var user = Parse.User.current();
+  var images = Parse.Object.extend("Carousel");
+  var query = new Parse.Query(images);
+
+  query.equalTo("user", user);
+
+  query.find({
+    success: function(results) {
+      for(var i = 0; i < results.length; i++) {
+      var image = results[i];
+      $scope.pictures.push({link: image.get("artcover").url()});
+      }
+    },
+      error: function(error){
+
+      }
+
+  })
+};
 
 
 
@@ -575,6 +591,7 @@ $scope.getVideo = function() {
       $scope.getmyWall();
       $scope.getembed();
       $scope.getEvents();
+      $scope.getCarousel();
 };
 
 $scope.init();

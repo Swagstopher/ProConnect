@@ -8,7 +8,7 @@
  * Controller of the proConnectApp
  */
 angular.module('proConnectApp')
-  .controller('IndexCtrl', function ($scope, $rootScope, localStorageService, $filter, $sce, $state) {
+  .controller('IndexCtrl', function ($scope, $rootScope, localStorageService, $filter, $sce, $state, ProConnectService) {
     $rootScope.page = "home";
     $rootScope.login = "";
     $scope.welcome = 'Welcome to ProConnect!';
@@ -18,8 +18,13 @@ angular.module('proConnectApp')
     $rootScope.date = new Date();
     $rootScope.currentUser = '';
     $rootScope.currentUserProfilePicture = '';
+    var interval = 30000;
 
-    $scope.searchmodel = '';
+
+
+    $scope.searchmodel = {search: ''};
+
+    $scope.searchservice = ProConnectService;
 
     $scope.getcurrentuser = function() {
       var username = Parse.User.current();
@@ -34,6 +39,7 @@ angular.module('proConnectApp')
       {
       $rootScope.currentUser = result[0].get("artistname");
       $rootScope.currentUserProfilePicture = result[0].get("profileImage").url();
+      $scope.$digest();
       }
 
       },
@@ -65,8 +71,6 @@ angular.module('proConnectApp')
           $rootScope.page = 'home';
           $scope.getcurrentuser();
           $scope.$digest();
-
-
         },
         error: function(user, error) {
           // The login failed. Check error to see why.
@@ -97,6 +101,8 @@ angular.module('proConnectApp')
           Parse.User.logOut();
           $rootScope.login = 'false';
           localStorageService.set('loginkey', 'false');
+          $rootScope.currentUser = '';
+          $rootScope.currentUserProfilePicture = '';
           $state.go('home');
           alert("User has logged out");
               }

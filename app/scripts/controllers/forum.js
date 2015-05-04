@@ -18,7 +18,9 @@ angular.module('proConnectApp')
 
     $scope.posts = [];
 
-    $scope.check = 'nFIH4mA2IO';
+    $scope.check = '';
+
+    $scope.messagepost = {message: ''};
 
     $scope.changetoForum = function() {
       $rootScope.forumswitch = "Forum";
@@ -27,12 +29,11 @@ angular.module('proConnectApp')
 
     $scope.changetoPosts = function() {
       $rootScope.forumswitch = 'Posts';
-      $scope.$digest();
     };
 
 //GET CATEGORIES
 
-    $scope.getCategories =  function() {
+  $scope.getCategories =  function() {
 var Comment = Parse.Object.extend("Comment");
 var query = new Parse.Query(Comment);
 
@@ -43,8 +44,7 @@ query.find({
       var object = results[i];
       $scope.categories.push({name: object.get('title'), identify: object.id});
       $scope.getCategoryThreads(object.id);
-    }
-    },
+    }},
     error: function(categories){
         alert("ERROR");
       }
@@ -63,8 +63,7 @@ query.find({
     success: function(threads){
          for (var i = 0; i < threads.length; i++) {
       var object = threads[i];
-      $scope.threadlist.push({title: object.get('title'), parent: object.get('parentID')});
-      $scope.getThreadPosts(object.id);
+      $scope.threadlist.push({identify:object.id, title: object.get('title'), parent: object.get('parentID')});
     }
     },
     error: function(threads){
@@ -75,8 +74,10 @@ query.find({
 
 
     $scope.getThreadPosts = function(parent){
+
 var Comment = Parse.Object.extend("Comment");
 var query = new Parse.Query(Comment);
+
 query.equalTo("isComment", true);
 query.equalTo("parentID", parent);
 query.ascending("createdAt");
@@ -85,20 +86,58 @@ query.find({
       for(var i = 0; i < comments.length; i++)
       {
         var post = comments[i];
-        $scope.posts.push({artist: post.get('fromUser'), message: post.get('content'), parentid: post.get('parentID')});
-    }
-    },
+        $scope.getUserThreadInfo(post.get('content'), post.get('parentID'), post.get('fromUser'));
+    }},
     error: function(comments){
         alert("ERROR");
       }
   });
-}
+};
 
+    $scope.getUserThreadInfo = function(post, parent, poster) {
+      var posts = Parse.Object.extend("Media");
+      var query = new Parse.Query(posts);
 
-$scope.init = function() {
+      query.equalTo("user", poster);
+
+      query.find({
+        success: function(results){
+          if(results.length > 0){
+          $scope.posts.push({picture: results[0].get("profileImage").url() , user: results[0].get("artistname"), message: post, parentid: parent });
+          }
+        },
+        error: function(error){}
+
+      });
+    };
+
+$scope.postForum = function() {
+  var ExtendComment = Parse.Object.extend("Comment");
+  var newpost = new ExtendComment();
+
+  newpost.save({
+    content: $scope.messagepost.message,
+    isCategory: false,
+    isComment: true,
+    isThread: false,
+    parentID: $scope.posts[0].parentid,
+    fromUser: Parse.User.current(),
+  }, {
+
+  success: function(newpost){
+
+    //$scope.wall.push({picture:$scope.profilepic , user: 'Hardwell', postdate:'Posted on ' + $scope.date , message: $scope.post});
+    $scope.messagepost.message = '';
+  },
+    error: function(result, error) {
+    }
+  });
+};
+
+$scope.init = function(){
   $scope.getCategories();
 };
 
 $scope.init();
 
-  });
+});

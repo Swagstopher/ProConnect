@@ -18,9 +18,9 @@
 									<th style="text-align:center">Post(s)</th>
 							</tr>
 						</thead>
-						<tbody ng-repeat="thread in threadlist">
+						<tbody ng-repeat="thread in threadlist | filter: category.identify">
 							<tr>
-									<td ng-click="changetoPosts()"><a> {{thread.title}} </a></td>
+									<td ng-click="changetoPosts(); getThreadPosts(thread.identify);"><a> {{thread.title}} </a></td>
 									<td>
 										<div id="img_container">
 												<a href="#"><img class="img-circle" src="http://remixpacks.at.ua/_ld/6/64755245.jpg" width="25px"></a>
@@ -40,30 +40,31 @@
 	  <div class="panel panel-default">
 	  <div class="panel-heading">
 	    <h1 class="panel-title">
-
 	    </h1>
-	  </div>
-	  <table class="table">
-	    <th colspan="1">
+
+	  <table class="table" ng-repeat="post in posts">
+			<th colspan="1">
 	        <a href="#" class="pull-left">
 	          <div id="img_container"><img class=
-	              "img-circle" src=
-	              "http://remixpacks.at.ua/_ld/6/64755245.jpg"
+	              "img-circle" ng-src=
+	              "{{post.picture}}" height="50px"
 	              width="50px"></div>
 	        </a>
-	        HardWell
+	        {{post.user}}
 	    </th>
 	    <th>
-	        Bootstrap easily and efficiently scales your websites and applications with a single code base, from phones to tablets.
+				{{post.message}}
 	    </th>
-
 	  </table>
 	  </div>
+	</div>
+
+
 	  <fieldset>
-	  <div class="form-group" class="pull-center">
-	  <textarea class="form-control" rows="4" placeholder="What's up?" required></textarea>
+		<div class="form-group" class="pull-center">
+	  <textarea class="form-control" rows="4" placeholder="What's up?" ng-model="messagepost.message"></textarea>
 	  <br>
-	  <input type="button" class="btn btn-default" value="Submit">
+	  <input type="button" class="btn btn-default" ng-click="postForum()" value="Submit">
 	  </div>
 	  </fieldset>
 	  </div>

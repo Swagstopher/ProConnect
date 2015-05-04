@@ -1,8 +1,13 @@
 <div ng-switch="login">
 <div class='embed-container'>
 
-<div class="jumbotron" style="background-color:transparent; color:white;" id="content">
+  <div ng-switch-when="false">
+    <iframe id="video" ng-src="https://www.youtube.com/embed/PbfSULQV9co?start=243&autoplay=1&showinfo=0&controls=0&autohide=1" frameborder='0' allowfullscreen></iframe>  <a ng-bind-html="videos.link"></a>
+  </div>
 
+
+
+<div class="jumbotron" style="background-color:transparent; color:white;" id="content">
 
 <div class="container" ng-switch-when="false">
   <br>
@@ -23,39 +28,6 @@
 
 <!-------------------------------- Body Panel ---------------------------------->
 	<!-- Left Panel -->
-
-<div ng-switch-when="true" style="color: white;">
-	<!-- Middle Body -->
-	<div class="middle-body">
-
-		<div class="col-md-6">
-			<h1 style="text-align:center;">News Feed</h1>
-
-			<div class="news_feed">
-				<div class="post jumbotron">
-					<div class="row">
-						<div class="col-md-2">
-							<img id="friend1" src="../images/ronaldo.jpg" alt="" height="75" width="75">
-						</div>
-
-						<div class="col-md-8">
-
-							<a id="name_link" href=""><h4><span>Ed Sheeran<br></span></a>
-								is now connected with<br>
-								<a id="name_link" href""><span id="span2">Zedd</span></h4></a>
-						</div>
-
-						<div class="col-mid-2">
-							<img src="../images/ronaldo.jpg" alt="" height="75" width="75">
-						</div>
-					</div><!-- row -->
-				</div><!-- Jumbotron -->
-			</div>
-		</div>
-	</div> <!-- Middle Body -->
-
-</div> <!-- end body panel ng-switch -->
-
 
 
 </div> <!-- end ng-switch login -->

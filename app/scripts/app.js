@@ -21,7 +21,7 @@ angular
     'parse-angular',
     'ui.bootstrap',
     'youtube-embed',
-    'ui.router'
+    'ui.router',
   ])
   .config(['localStorageServiceProvider', function(localStorageServiceProvider){
   localStorageServiceProvider.setPrefix('ls');

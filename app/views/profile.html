@@ -5,13 +5,9 @@
         <div class="col-xs-8" style="left:5%!Important;">
 
 <div style="max-height: 305!Important;">
-<carousel interval="interval">
+<carousel interval="5000">
 <slide ng-repeat="picture in pictures" active="slide.active">
   <img ng-src="{{picture.link}}" style="margin:auto;">
-  <div class="carousel-caption">
-    <h4>Moo</h4>
-      <p>Moo</p>
-  </div>
 </slide>
 </carousel>
 
@@ -138,7 +134,8 @@
             <p>Follow me on:</p>
 
 
-              <div ng-model="followmedia">
+          <div ng-model="followmedia">
+            <a img src="../images/YouTube-logo-full_color.png" ng-href="{{followmedia.twitter}}" class="img-responsive" alt=""></a>
             <a ng-href="{{followmedia.twitter}}">Twitter</a>
             <a ng-href="{{followmedia.facebook}}">Facebook</a>
             <a ng-href="{{followmedia.soundcloud}}">SoundCloud</a>

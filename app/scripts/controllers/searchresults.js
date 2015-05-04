@@ -51,4 +51,5 @@ angular.module('proConnectApp')
       $state.go('profile');
     };
 
+
   });
